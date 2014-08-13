@@ -3,7 +3,12 @@ var path = require('path');
 var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
+var session = require('express-session');
 var bodyParser = require('body-parser');
+
+var passport = require('./config/auth');
+
+var role = require('./config/acl');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -19,9 +24,15 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({secret: 'keyboard cat'}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use('/cc', express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
+// Сonnect a middleware
+app.use(role.middleware());
+
+app.use('/login', routes);
 app.use('/users', users);
 
 /// catch 404 and forwarding to error handler
