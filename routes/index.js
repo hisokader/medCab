@@ -18,26 +18,25 @@ var userModel = require('../models').user;
 //res.send(200);
 });*/
 
-router.get('/', function(req, res) {
+router.get('/', function(req, res,next) {
 	console.log(req.session);
-	res.sendfile('public/login.html');
+	console.log(req.isAuthenticated());
+	next();
 });
 
-
-
-router.post('/',passport.authenticate('local', {
-	successRedirect: '/login/loginSuccess',
-	failureRedirect: '/login/loginFailure'
-  }));
+router.post('/login',passport.authenticate('local', {
+	successRedirect: '/loginSuccess',
+	failureRedirect: '/loginFailure'
+}));
  
 router.get('/loginFailure', function(req, res, next) {
 	console.log('failed');
-  res.send('Failed to authenticate');
+	res.json(401,{ user: null });
 });
  
 router.get('/loginSuccess', function(req, res, next) {
 	console.log('Successfully');
-  res.send('Successfully authenticated');
+	res.json(200,{ user: req.user });
 });
 router.get('/register', function(req, res, next) {
 	var u1=new userModel();

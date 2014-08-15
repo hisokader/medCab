@@ -1,4 +1,11 @@
-define(['backbone','underscore','../collections/menu_cl','text!../../../../templates/template.html'],function(Backbone,_,menu_cl,Template){
+define(
+    [
+        'backbone',
+        'underscore',
+        '../collections/menu_cl',
+        'text!../../../../templates/template.html'
+    ],function(Backbone,_,menu_cl,Template){
+    
     var leftSideBar_vw = Backbone.View.extend({
         el:$('#sidebar'),
         initialize:function(){
@@ -6,7 +13,6 @@ define(['backbone','underscore','../collections/menu_cl','text!../../../../templ
         template: _.template(Template),
         render: function(){
             this.$el.html(this.template({col:this.collection.toJSON()}));
-            console.log(this.el);
           return this;
         }
     });

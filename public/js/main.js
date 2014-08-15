@@ -90,5 +90,5 @@ define([
     function ($,Backbone,Router) {
 
         new Router();
-        Backbone.history.start({root: "/sench/medecin/"});
+        Backbone.history.start({root: "/"});
 });

@@ -27,12 +27,23 @@ app.use(cookieParser());
 app.use(session({secret: 'keyboard cat'}));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use('/cc', express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.all('/*',function(req, res, next) {
+    if(req.path=='/login') next();
+    else if(!req.isAuthenticated())
+        {console.log('not logged');res.send(401,'login Please');}
+    else {
+        console.log(req.isAuthenticated());
+        console.log(req.user);
+        next();
+    }
+});
 
 // Сonnect a middleware
 app.use(role.middleware());
 
-app.use('/login', routes);
+app.use('/', routes);
 app.use('/users', users);
 
 /// catch 404 and forwarding to error handler
