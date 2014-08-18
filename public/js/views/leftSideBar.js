@@ -2,17 +2,19 @@ define(
     [
         'backbone',
         'underscore',
-        '../collections/menu_cl',
-        'text!../../../../templates/template.html'
+        'js/collections/menu_cl',
+        'text!templates/template.html'
     ],function(Backbone,_,menu_cl,Template){
     
     var leftSideBar_vw = Backbone.View.extend({
         el:$('#sidebar'),
-        initialize:function(){
+        initialize:function(role){
+        
         },
         template: _.template(Template),
-        render: function(){
-            this.$el.html(this.template({col:this.collection.toJSON()}));
+        render: function(role){
+        var colFilterRole=this.collection.where({"role":role});
+            this.$el.html(this.template({col:new Backbone.Collection(colFilterRole).toJSON()}));
           return this;
         }
     });

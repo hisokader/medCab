@@ -1,6 +1,7 @@
 var express = require('express');
 var path = require('path');
 var favicon = require('static-favicon');
+//var csrf = require('csurf');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
@@ -27,13 +28,17 @@ app.use(cookieParser());
 app.use(session({secret: 'keyboard cat'}));
 app.use(passport.initialize());
 app.use(passport.session());
+//app.use(csrf());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.all('/*',function(req, res, next) {
-    if(req.path=='/login') next();
+    //res.json(200,{csrftoken:req.csrfToken()});
+    if(req.path=='/login' || req.path=='/') next();
     else if(!req.isAuthenticated())
         {console.log('not logged');res.send(401,'login Please');}
     else {
+        
+        console.log("Cookies: ", req.cookies)
         console.log(req.isAuthenticated());
         console.log(req.user);
         next();

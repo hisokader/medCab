@@ -31,7 +31,7 @@ router.post('/login',passport.authenticate('local', {
  
 router.get('/loginFailure', function(req, res, next) {
 	console.log('failed');
-	res.json(401,{ user: null });
+	res.json(200,{ user: req.user });
 });
  
 router.get('/loginSuccess', function(req, res, next) {

@@ -1,10 +1,11 @@
 define(
     [
         'jquery',
-        'backbone',
         'underscore',
-        'text!../../../../templates/login.html'
-    ],function($,Backbone,_,Template){
+        'backbone',
+        'js/models/session',
+        'text!templates/login.html'
+    ],function($,_,Backbone,Session,Template){
     
     var login_vw = Backbone.View.extend({
         el:$('body'),
@@ -21,18 +22,26 @@ define(
             $.ajax({
                 type: "POST",
                 url: 'login?'+data,
-                success: self.loginSuccess,
+                success: function(sessionInfo, textStatus, jqXHR){
+                    self.loginSuccess(sessionInfo, textStatus, jqXHR);
+                },
                 error: self.loginError
             });
         },
         loginSuccess:function(sessionInfo, textStatus, jqXHR){
-            console.log(sessionInfo);
-            if(sessionInfo)location.href = "/";
+            if(sessionInfo){
+                Session.set('user',JSON.stringify(sessionInfo.user));
+                Session.set('authenticated',true);
+                this.remove();
+                location.href = "/";
+            }
         },
         loginError:function(error){
             console.log(error);
         },
         initialize:function(){
+            _.bind(this.loginSuccess, this);
+            _.bind(this.loginError, this);
             $('body').addClass("login-body");
         },
         render: function(){

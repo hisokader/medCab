@@ -1,24 +1,27 @@
 require.config({
-    baseUrl : './bower_components',
+    baseUrl : './',
 
     paths : {
-        'jquery' : 'jquery/dist/jquery',
-        'underscore' : 'underscore/underscore',
-        'backbone' : 'backbone/backbone',
-        'text' : 'text/text',
-        'doT' : 'doT/doT',
-        'bootstrap' : 'bootstrap/dist/js/bootstrap',
-        'initscript' : '../js/scripts',
-        'dcjqaccordion': 'jquery-dcjqaccordion/jquery.dcjqaccordion',
-        'scrollTo' : 'jquery.scrollTo/jquery.scrollTo',
-        'slimscroll' : 'jquery.slimscroll/jquery.slimscroll',
-        'nicescroll' : 'jquery.nicescroll/jquery.nicescroll',
-        'sparkline' : 'jquery.sparkline/dist/jquery.sparkline',
-        'flot' : 'flot.tooltip/js/jquery.flot',
-        'flot-tooltip' : 'flot.tooltip/js/jquery.flot.tooltip',
-        'flot-pie' : 'flot/jquery.flot.pie',
-        'flot-resize' : 'flot/jquery.flot.resize',
-        'easypiechart' : 'easypie/dist/easypiechart'
+        'jquery' : 'bower_components/jquery/dist/jquery',
+        'underscore' : 'bower_components/underscore/underscore',
+        'backbone' : 'bower_components/backbone/backbone',
+        'text' : 'bower_components/text/text',
+        'doT' : 'bower_components/doT/doT',
+        'bootstrap' : 'bower_components/bootstrap/dist/js/bootstrap',
+        'initscript' : 'js/scripts',
+        'dcjqaccordion': 'bower_components/jquery-dcjqaccordion/jquery.dcjqaccordion',
+        'scrollTo' : 'bower_components/jquery.scrollTo/jquery.scrollTo',
+        'slimscroll' : 'bower_components/jquery.slimscroll/jquery.slimscroll',
+        'nicescroll' : 'bower_components/jquery.nicescroll/jquery.nicescroll',
+        'sparkline' : 'bower_components/jquery.sparkline/dist/jquery.sparkline',
+        'flot' : 'bower_components/flot.tooltip/js/jquery.flot',
+        'flot-tooltip' : 'bower_components/flot.tooltip/js/jquery.flot.tooltip',
+        'flot-pie' : 'bower_components/flot/jquery.flot.pie',
+        'flot-resize' : 'bower_components/flot/jquery.flot.resize',
+        'easypiechart' : 'bower_components/easypie/dist/easypiechart',
+        'router' : 'js/router',
+
+        'templates':'./templates'
     },
     shim : {
         'backbone' : {
@@ -74,7 +77,7 @@ require.config({
 define([
     'jquery',
     'backbone',
-    '../js/router',
+    'router',
     'bootstrap',
     'initscript',
     'dcjqaccordion',

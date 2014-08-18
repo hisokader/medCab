@@ -1,16 +1,18 @@
 define([
         'jquery',
         'backbone',
-        './views/leftSideBar',
-        './views/login',
-        './collections/menu_cl'
-    ],function($,Backbone,leftSideBar,login,menu_cl){
+        '../js/models/session',
+        '../js/views/leftSideBar',
+        '../js/views/navProfile',
+        '../js/views/login',
+        '../js/collections/menu_cl'
+    ],function($,Backbone,Session,LeftSideBar,NavProfile,Login,Menu_cl){
     var Router = Backbone.Router.extend({
         routes: {
             "index":"dashboard",
             "login":"login",
             "forbidden":"forbiddenError",
-          "mdtest":         "wsx"
+          "mdtest": "wsx"
         },
         initialize:function(){
             console.log('initialize router ! ');
@@ -18,6 +20,7 @@ define([
             $.ajaxSetup({
                 statusCode: {
                     401: function() {
+                        Session.clear();
                         self.navigate("/login", {trigger: true});
                     },
                     403: function() {
@@ -25,10 +28,11 @@ define([
                     }
                 }
             });
-            this.dashboard();
+            if(!Session.isAuthenticated())this.login();
+            else this.wsx();
         },
         login:function(){
-            new login().render();
+            var loginView=new Login().render();
         },
         forbiddenError:function(){
             alert( "Forbidden !" );
@@ -39,32 +43,9 @@ define([
             });
         },
         wsx:function(){
-            var collection=new menu_cl();
-            collection.add({
-                "icon":  "fa-dashboard",
-                "libelle":     "dashboard",
-                "subMenu":null
-              });
-            collection.add({
-                "icon":  "fa-users",
-                "libelle":     "Patient"
-              });
-            collection.add({
-                "icon":  "fa-pencil-square-o",
-                "libelle":     "Consultation",
-                "subMenu":[]
-              });
-            
-            collection.add({
-                "icon":  "fa-calendar",
-                "libelle":     "Agenda"
-              });
-            
-            collection.add({
-                "icon":  "fa-keyboard-o",
-                "libelle":     "Comptabilite"
-              });
-            new leftSideBar({collection:collection}).render();
+            var profile=new NavProfile().render(eval(Session.get('user')).nom);
+            var collectionx=new Menu_cl();
+            var leftSideBar=new LeftSideBar({collection:collectionx}).render(eval(Session.get('user')).role);
         }
     });
     return Router;
