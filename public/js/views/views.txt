@@ -1,0 +1,24 @@
+define(
+    [
+        'jquery',
+        'backbone',
+        'underscore',
+        'js/models/session',
+        'text!templates/tmpl.html'
+    ],function($,Backbone,_,Session,Template){
+    
+    var view_vw = Backbone.View.extend({
+        el:$('header.header'),
+        initialize:function(){
+            this.subViews.push(new subView());
+        },
+        template: _.template(Template),
+        render: function(){
+            this.$el.html(this.template());
+            this.renderSubView();
+          return this;
+        }
+    });
+    
+    return view_vw;
+});

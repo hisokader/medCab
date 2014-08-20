@@ -2,18 +2,19 @@ define(
     [
         'backbone',
         'underscore',
-        'js/collections/menu_cl',
-        'text!templates/template.html'
-    ],function(Backbone,_,menu_cl,Template){
+        'js/models/session',
+        'text!templates/leftSideBar.html'
+    ],function(Backbone,_,Session,Template){
     
     var leftSideBar_vw = Backbone.View.extend({
-        el:$('#sidebar'),
-        initialize:function(role){
+        tagName: 'aside',
+        initialize:function(){
         
         },
         template: _.template(Template),
-        render: function(role){
-        var colFilterRole=this.collection.where({"role":role});
+        render: function(){
+            var role=(eval(Session.get('user'))).role;
+            var colFilterRole=this.collection.where({"role":role});
             this.$el.html(this.template({col:new Backbone.Collection(colFilterRole).toJSON()}));
           return this;
         }

@@ -2,11 +2,9 @@ define([
         'jquery',
         'backbone',
         '../js/models/session',
-        '../js/views/leftSideBar',
-        '../js/views/navProfile',
-        '../js/views/login',
-        '../js/collections/menu_cl'
-    ],function($,Backbone,Session,LeftSideBar,NavProfile,Login,Menu_cl){
+        '../js/views/layout',
+        '../js/views/login'
+    ],function($,Backbone,Session,Layout,Login){
     var Router = Backbone.Router.extend({
         routes: {
             "index":"dashboard",
@@ -35,17 +33,16 @@ define([
             var loginView=new Login().render();
         },
         forbiddenError:function(){
-            alert( "Forbidden !" );
+            if(this.layout)this.layout.close();
         },
         dashboard:function(){
             $.get( "test", function( data ) {
                 alert( "Load was performed."+data );
             });
+            this.layout.close();
         },
         wsx:function(){
-            var profile=new NavProfile().render(eval(Session.get('user')).nom);
-            var collectionx=new Menu_cl();
-            var leftSideBar=new LeftSideBar({collection:collectionx}).render(eval(Session.get('user')).role);
+            this.layout=new Layout().render();
         }
     });
     return Router;

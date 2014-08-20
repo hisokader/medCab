@@ -3,21 +3,24 @@ define(
         'jquery',
         'backbone',
         'underscore',
-        '../models/session',
+        'js/models/session',
         'text!templates/navProfile.html'
     ],function($,Backbone,_,Session,Template){
     
-    var main_vw = Backbone.View.extend({
-        el:$('body'),
+    var navProfile_vw = Backbone.View.extend({
+        tagName: 'div',
+        className: 'top-nav clearfix',
         initialize:function(){
-            this.subViews=[];
+
         },
         template: _.template(Template),
         render: function(){
-
+            nameUser=eval(Session.get('user')).nom;
+            this.$el.html(this.template({name:nameUser}));
+            this.renderSubView();
           return this;
         }
     });
     
-    return main_vw;
+    return navProfile_vw;
 });

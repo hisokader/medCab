@@ -3,7 +3,6 @@ define([
   'backbone',
   'router'
 ], function($, Backbone){
-
   var SessionModel = Backbone.Model.extend({
       
       url : '/session',
@@ -126,6 +125,5 @@ define([
           Session.always(callback);
       }
   });
-
-  return new SessionModel(); 
+  return new SessionModel();
 });

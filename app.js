@@ -31,7 +31,7 @@ app.use(passport.session());
 //app.use(csrf());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.all('/*',function(req, res, next) {
+/*app.all('/*',function(req, res, next) {
     //res.json(200,{csrftoken:req.csrfToken()});
     if(req.path=='/login' || req.path=='/') next();
     else if(!req.isAuthenticated())
@@ -43,7 +43,7 @@ app.all('/*',function(req, res, next) {
         console.log(req.user);
         next();
     }
-});
+});*/
 
 // Сonnect a middleware
 app.use(role.middleware());

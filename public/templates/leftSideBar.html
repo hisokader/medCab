@@ -1,0 +1,25 @@
+<div id="sidebar" class="nav-collapse">
+<!-- sidebar menu start-->            
+    <div class="leftside-navigation">
+        <ul class="sidebar-menu" id="nav-accordion">
+             
+            <% _.each(col, function(menu){ %>
+                <li <% if(_.isArray(menu.subMenu) && menu.subMenu.length>0){ %><%='class="sub-menu"'%><%}%> >
+                    <a href="index.html">
+                        <i class="fa <%= menu.icon %>"></i>
+                        <span><%= menu.libelle %></span>
+                    </a>
+                    <% if(_.isArray(menu.subMenu) && menu.subMenu.length>0){ %>
+                        <ul class="sub">
+                            <% _.each(menu.subMenu, function(subMenu){ %>
+                                    <li><a href="<%= subMenu.route%>"><%= subMenu.libelle%></a></li>
+                            <%}); %>
+                        </ul>
+                    <%} %>
+                </li>
+            <%}); %>
+         </ul>
+    </div>
+      
+<!-- sidebar menu end-->
+</div>
