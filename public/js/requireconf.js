@@ -22,9 +22,6 @@ require.config({
         'templates':'./templates'
     },
     shim : {
-        'jquery' : {
-            exports : '$'
-        },
         'backbone' : {
             //These script dependencies should be loaded before loading
             //backbone.js
@@ -71,9 +68,9 @@ require.config({
         },
         
         'initscript' : {
-            deps : [,'jquery','bootstrap','dcjqaccordion','scrollTo','slimscroll','nicescroll','easypiechart','sparkline','flot','flot-tooltip','flot-resize','flot-pie']
+            deps : ['jquery','bootstrap']
         }
     }
 });
-require(['js/main']);
+require(['dcjqaccordion','scrollTo','slimscroll','nicescroll','easypiechart','sparkline','flot','flot-tooltip','flot-resize','flot-pie','js/main']);
 // Start the main app logic.
