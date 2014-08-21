@@ -1,9 +1,9 @@
 define([
         'jquery',
         'backbone',
-        '../js/models/session',
-        '../js/views/layout',
-        '../js/views/login'
+        'js/models/session',
+        'js/views/layout',
+        'js/views/login'
     ],function($,Backbone,Session,Layout,Login){
     var Router = Backbone.Router.extend({
         routes: {

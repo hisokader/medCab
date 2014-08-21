@@ -1,6 +1,7 @@
-(function ($) {
-    "use strict";
-    $(document).ready(function () {
+define([], function () {
+    
+    var initTemplate=function () {
+        "use strict";
         /*==Left Navigation Accordion ==*/
         if ($.fn.dcAccordion) {
             $('#nav-accordion').dcAccordion({
@@ -283,8 +284,7 @@
 
         $('.popovers').popover();
 
-
-    });
-
-
-})(jQuery);
+    
+    }
+    return initTemplate;
+});

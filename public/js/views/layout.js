@@ -6,8 +6,9 @@ define(
         'js/collections/menu_cl',
         'js/views/header/header',
         'js/views/leftSideBar',
-        'text!templates/layout.html'
-    ],function($,Backbone,_,Menu_cl,Header,LeftSideBar,Template){
+        'text!templates/layout.html',
+        'initscript'
+    ],function($,Backbone,_,Menu_cl,Header,LeftSideBar,Template,initScript){
     
     var layout_vw = Backbone.View.extend({
         tagName: 'section',
@@ -22,6 +23,7 @@ define(
             this.renderSubView();
             this.$el.append(this.template());
             $('body').append(this.$el);
+            initScript();
             return this;
         }
     });
