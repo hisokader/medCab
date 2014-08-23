@@ -1,17 +1,19 @@
-define(['backbone'],function(Backbone){
+define([
+  'backbone'
+  ],function(Backbone){
     var patient = Backbone.Model.extend({
+      urlRoot:'/patients',
       defaults: {
-          "Nom":  "",
-          "Prenom": "",
-          "Sexe": "",
-          "DateNaissance": "",
-          "Adresse": "",
-          "Fixe": "",
-          "Gsm": "",
-          "Profession": "",
-          "mutuelliste": "",
+          "lastName":  "",
+          "firstName": "",
+          "sexe": "",
+          "dayBirth": "",
+          "adress": "",
+          "tel": "",
+          "gsm": "",
+          "job": "",
+          "insurance": "",
           "diagnostique": "",
-
       }
     });
     

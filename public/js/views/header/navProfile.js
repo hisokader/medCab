@@ -15,7 +15,7 @@ define(
         },
         template: _.template(Template),
         render: function(){
-            nameUser=eval(Session.get('user')).nom;
+            nameUser='user';//eval(Session.get('user')).nom;
             this.$el.html(this.template({name:nameUser}));
             this.renderSubView();
           return this;

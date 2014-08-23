@@ -6,16 +6,16 @@ var Schema = mongoose.Schema,
 
 var patient = new Schema({
     id : ObjectId,
-    nom : String,
-    prenom : String,
+    lastName : String,
+    firstName : String,
     sexe : Boolean,
-    DateNaissance: Date,
-	Adresse: String,
-	Fixe: String,
-	Gsm: String,
-	Profession: String,
-	mutuelliste: Boolean,
+    dayBirth: Date,
+	adress: String,
+	tel: String,
+	gsm: String,
+	job: String,
+	insurance: Boolean,
 	diagnostique: String
 });
 
-module.exports=mongooseConn.model('Patient', patient);
+module.exports=patient;
