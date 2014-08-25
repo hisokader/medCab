@@ -41,6 +41,7 @@ define([
 
       set : function(key, value){
           if(this.supportStorage){
+            console.log(value);
               sessionStorage.setItem(key, value);
           }else{
               Backbone.Model.prototype.set.call(this, key, value);

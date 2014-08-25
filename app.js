@@ -1,7 +1,7 @@
 var express = require('express');
 var path = require('path');
 var favicon = require('static-favicon');
-//var csrf = require('csurf');
+var csrf = require('csurf');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
@@ -13,7 +13,7 @@ var role = require('./config/acl');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-
+var patients = require('./routes/patients');
 var app = express();
 
 // view engine setup
@@ -28,28 +28,31 @@ app.use(cookieParser());
 app.use(session({secret: 'keyboard cat'}));
 app.use(passport.initialize());
 app.use(passport.session());
-//app.use(csrf());
+app.use(csrf());
 app.use(express.static(path.join(__dirname, 'public')));
 
-/*app.all('/*',function(req, res, next) {
-    //res.json(200,{csrftoken:req.csrfToken()});
-    if(req.path=='/login' || req.path=='/') next();
+app.all('/*',function(req, res, next) {
+    if(req.path=='/' || req.path=='/login') next();
     else if(!req.isAuthenticated())
-        {console.log('not logged');res.send(401,'login Please');}
+        {
+            console.log('not logged');
+            res.set('x-csrf-token', req.csrfToken());
+            res.send(401,{status:'false', msg:'login Please'});
+        }
     else {
-        
         console.log("Cookies: ", req.cookies)
         console.log(req.isAuthenticated());
         console.log(req.user);
         next();
     }
-});*/
+});
 
 // Сonnect a middleware
 app.use(role.middleware());
-
+app.use('/patients', patients);
 app.use('/', routes);
 app.use('/users', users);
+
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {

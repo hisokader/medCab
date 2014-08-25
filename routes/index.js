@@ -1,7 +1,6 @@
-var express = require('express');
-var router = express.Router();
-var passport = require('../config/auth');
-var userModel = require('../models').user;
+var express = require('express'),
+	router = express.Router(),
+	passport = require('../config/auth');
 
 /* GET home page. */
 /*router.get('/', function(req, res) {
@@ -18,10 +17,10 @@ var userModel = require('../models').user;
 //res.send(200);
 });*/
 
-router.get('/', function(req, res,next) {
-	console.log(req.session);
-	console.log(req.isAuthenticated());
-	next();
+router.get('/', function(req, res) {
+	console.log('req.session');
+	res.locals.xxxx=req.csrfToken();
+	res.render('index',{csurf : req.csrfToken()});
 });
 
 router.post('/login',passport.authenticate('local', {

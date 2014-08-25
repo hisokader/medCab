@@ -3,8 +3,9 @@ define([
         'backbone',
         'js/models/session',
         'js/views/layout',
-        'js/views/login'
-    ],function($,Backbone,Session,Layout,Login){
+        'js/views/login',
+        'js/collections/patient_cl',
+    ],function($,Backbone,Session,Layout,Login,Patient_cl){
     var Router = Backbone.Router.extend({
         routes: {
             "index":"dashboard",
@@ -15,7 +16,14 @@ define([
         initialize:function(){
             console.log('initialize router ! ');
             var self=this;
+            this.csurfToken=$('meta[name=csrf-token]').attr("content");
             $.ajaxSetup({
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader('x-csrf-token',self.csurfToken);
+                },
+                complete: function(xhr) {
+                    self.csurfToken=xhr.getResponseHeader('x-csrf-token');
+                },
                 statusCode: {
                     401: function() {
                         Session.clear();
@@ -26,8 +34,8 @@ define([
                     }
                 }
             });
-            if(!Session.isAuthenticated())this.login();
-            else this.wsx();
+            /*if(!Session.isAuthenticated())this.login();
+            else*/ this.wsx();
         },
         login:function(){
             var loginView=new Login().render();
@@ -43,6 +51,19 @@ define([
         },
         wsx:function(){
             this.layout=new Layout().render();
+            var patients=new Patient_cl();
+            patients.fetch({success:function(){
+                console.log(JSON.stringify(patients));
+                
+                //patients.sync();
+            }}).then(function(){
+                var pat1=patients.at(1);
+                pat1.destroy({success: function(model, response) {
+                  console.log(model);
+                }});
+                console.log(JSON.stringify(patients));
+            });
+            
         }
     });
     return Router;

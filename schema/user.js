@@ -9,6 +9,7 @@ var user = new Schema({
 	nom : String,
 	prenom : String,
 	role : String,
+	salt:String,
 	username : String,
 	password : String
 });
