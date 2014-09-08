@@ -18,6 +18,8 @@ require.config({
         'flot-pie' : 'bower_components/flot/jquery.flot.pie',
         'flot-resize' : 'bower_components/flot/jquery.flot.resize',
         'easypiechart' : 'bower_components/easypie/dist/easypiechart',
+        'datatables' : 'js/js_other/datatables/jquery.dataTables',
+        'DT_bootstrap':'js/js_other/datatables/DT_bootstrap',
         'router' : 'js/router',
         'templates':'./templates'
     },
@@ -66,11 +68,16 @@ require.config({
         'flot-pie' : {
             deps : ['flot','jquery']
         },
-        
+        'datatables' : {
+            deps : ['jquery']
+        },
+        'DT_bootstrap' : {
+            deps : ['datatables','bootstrap']
+        },
         'initscript' : {
             deps : ['jquery','bootstrap']
         }
     }
 });
-require(['dcjqaccordion','scrollTo','slimscroll','nicescroll','easypiechart','sparkline','flot','flot-tooltip','flot-resize','flot-pie','js/main']);
+require(['dcjqaccordion','scrollTo','slimscroll','nicescroll','easypiechart','sparkline','flot','flot-tooltip','flot-resize','flot-pie','datatables', 'DT_bootstrap','js/main']);
 // Start the main app logic.

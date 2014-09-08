@@ -49,8 +49,8 @@ app.all('/*',function(req, res, next) {
 
 // Сonnect a middleware
 app.use(role.middleware());
-app.use('/patients', patients);
 app.use('/', routes);
+app.use('/patients', patients);
 app.use('/users', users);
 
 

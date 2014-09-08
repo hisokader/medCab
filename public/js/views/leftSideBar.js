@@ -13,7 +13,8 @@ define(
         },
         template: _.template(Template),
         render: function(){
-            var role=1;//(eval(Session.get('user'))).role;
+            var session=new Session();
+            var role=(eval(session.get('user'))).role;
             var colFilterRole=this.collection.where({"role":role});
             this.$el.html(this.template({col:new Backbone.Collection(colFilterRole).toJSON()}));
           return this;

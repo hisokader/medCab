@@ -19,7 +19,6 @@ var express = require('express'),
 
 router.get('/', function(req, res) {
 	console.log('req.session');
-	res.locals.xxxx=req.csrfToken();
 	res.render('index',{csurf : req.csrfToken()});
 });
 
@@ -27,7 +26,12 @@ router.post('/login',passport.authenticate('local', {
 	successRedirect: '/loginSuccess',
 	failureRedirect: '/loginFailure'
 }));
- 
+router.get('/logout', function(req, res){
+		console.log('not bad');
+		req.logout();
+		res.json(200,{status:'true', msg:'Successfully logout.'})
+	}
+);
 router.get('/loginFailure', function(req, res, next) {
 	console.log('failed');
 	res.json(200,{ user: req.user });

@@ -30,10 +30,11 @@ define(
         },
         loginSuccess:function(sessionInfo, textStatus, jqXHR){
             if(sessionInfo){
-                Session.set('user',JSON.stringify(sessionInfo.user));
-                Session.set('authenticated',true);
+                var session=new Session();
+                session.set('user',JSON.stringify(sessionInfo.user));
+                session.set('authenticated',true);
                 this.remove();
-                location.href = "/";
+                location.href="/";
             }
         },
         loginError:function(error){
@@ -45,7 +46,6 @@ define(
             $('body').addClass("login-body");
         },
         render: function(){
-            console.log('login vw rendred');
             this.$el.html(this.template());
           return this;
         }

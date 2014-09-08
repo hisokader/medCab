@@ -5,17 +5,23 @@ define([
         'js/views/layout',
         'js/views/login',
         'js/collections/patient_cl',
-    ],function($,Backbone,Session,Layout,Login,Patient_cl){
+        'js/views/messageBoxes/confirme',
+        'js/models/template/messageBoxe',
+        'js/views/patientstable',
+    ],function($,Backbone,Session,Layout,Login,Patient_cl,confirmeMsgView,messageBoxesModel,patientsTableVw){
     var Router = Backbone.Router.extend({
         routes: {
             "index":"dashboard",
-            "login":"login",
+            "login":"loginFn",
+            "logout":"logoutFn",
             "forbidden":"forbiddenError",
-          "mdtest": "wsx"
+            "patients":"allPatients"
         },
         initialize:function(){
             console.log('initialize router ! ');
             var self=this;
+            this.currentView=null;
+            this.session=new Session();
             this.csurfToken=$('meta[name=csrf-token]').attr("content");
             $.ajaxSetup({
                 beforeSend: function(xhr) {
@@ -26,32 +32,53 @@ define([
                 },
                 statusCode: {
                     401: function() {
-                        Session.clear();
-                        self.navigate("/login", {trigger: true});
+                        self.session.clear();
+                        var modal = new confirmeMsgView(new messageBoxesModel({
+                            "title": "Probleme d'authentification",
+                            "text":"vous devez vous connectez d'abord pour avoir acces.",
+                            "type":"alert",
+                            "confirmation":"OK"
+                        }),function(){
+                            self.navigate("/login", {trigger: true});
+                        }).render();
                     },
                     403: function() {
                         self.navigate("/forbidden", {trigger: true});
                     }
                 }
             });
-            /*if(!Session.isAuthenticated())this.login();
-            else*/ this.wsx();
+            if(!this.session.isAuthenticated())this.loginFn();
+            else this.dashboard();
         },
-        login:function(){
-            var loginView=new Login().render();
+        loginFn:function(){
+            if(!this.session.isAuthenticated()){
+                if(this.layout)this.layout.close();
+                this.login=new Login(this).render();
+            }else
+                this.dashboard();
+        },
+        logoutFn:function(){
+            if(this.session.isAuthenticated()){
+                this.session.clear();
+                this.navigate("/login", {trigger: true});
+            }
         },
         forbiddenError:function(){
             if(this.layout)this.layout.close();
         },
         dashboard:function(){
-            $.get( "test", function( data ) {
-                alert( "Load was performed."+data );
-            });
-            this.layout.close();
+            /*var modal = new confirmeMsgView(new messageBoxesModel({title:"myTitle",text:"dgdfgd",type:"dialoge"}),function(){
+                console.log('thisis callback fn');
+            });*/
+            if(this.layout)this.layout.close();
+            this.layout=this.layout || new Layout(this);
+            this.layout.render();
+            //modal.render();
         },
-        wsx:function(){
-            this.layout=new Layout().render();
-            var patients=new Patient_cl();
+        allPatients:function(){
+            console.log('ffff');
+           var patientsTable=new patientsTableVw().render();
+            /*var patients=new Patient_cl();
             patients.fetch({success:function(){
                 console.log(JSON.stringify(patients));
                 
@@ -62,8 +89,7 @@ define([
                   console.log(model);
                 }});
                 console.log(JSON.stringify(patients));
-            });
-            
+            });*/
         }
     });
     return Router;

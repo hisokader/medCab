@@ -8,14 +8,6 @@ define([
       url : '/session',
 
       initialize : function(){
-          //Ajax Request Configuration
-          //To Set The CSRF Token To Request Header
-          /*$.ajaxSetup({
-              headers : {
-                  'X-CSRF-Token' : csrf
-              }
-          });*/
-
           //Check for sessionStorage support
           console.log('sess init');
           if(Storage && sessionStorage){
@@ -126,5 +118,5 @@ define([
           Session.always(callback);
       }
   });
-  return new SessionModel();
+  return SessionModel;
 });
