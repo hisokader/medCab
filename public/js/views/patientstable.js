@@ -31,7 +31,7 @@ define(
                 self.collection.forEach(function(element, index, list){
                     self.subViews.push(new patientTableItem_vw(element));
                 });
-                self.renderSubView("#main-content table."+patientsTableAttributes.selector+" tbody");
+                self.renderSubView("table."+patientsTableAttributes.selector+" tbody");
             },error:function(){
                 console.log('error fetch()');
             }}).then(function(){                

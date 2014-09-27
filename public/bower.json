@@ -28,7 +28,8 @@
     "flot.tooltip": "~0.7.1",
     "jquery-ui": "~1.11.0",
     "easypie": "~2.1.4",
-    "text": "~2.0.12"
+    "text": "~2.0.12",
+    "socket.io-client": "~1.1.0"
   },
   "devDependencies": {
     "requirejs": "~2.1.14"

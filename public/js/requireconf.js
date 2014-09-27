@@ -7,6 +7,7 @@ require.config({
         'backbone' : 'bower_components/backbone/backbone',
         'text' : 'bower_components/text/text',
         'bootstrap' : 'bower_components/bootstrap/dist/js/bootstrap',
+        'io' : 'bower_components/socket.io-client/socket.io',
         'initscript' : 'js/scripts',
         'dcjqaccordion': 'bower_components/jquery-dcjqaccordion/jquery.dcjqaccordion',
         'scrollTo' : 'bower_components/jquery.scrollTo/jquery.scrollTo',
@@ -25,12 +26,7 @@ require.config({
     },
     shim : {
         'backbone' : {
-            //These script dependencies should be loaded before loading
-            //backbone.js
-            deps : ['underscore', 'jquery'],
-            //Once loaded, use the global 'Backbone' as the
-            //module value.
-            //exports : 'Backbone'
+            deps : ['underscore', 'jquery']
         },
         'underscore' : {
            // exports : '_'
@@ -79,5 +75,19 @@ require.config({
         }
     }
 });
-require(['dcjqaccordion','scrollTo','slimscroll','nicescroll','easypiechart','sparkline','flot','flot-tooltip','flot-resize','flot-pie','datatables', 'DT_bootstrap','js/main']);
+require([
+    'dcjqaccordion',
+    'scrollTo',
+    'slimscroll',
+    'nicescroll',
+    'easypiechart',
+    'sparkline',
+    'flot',
+    'flot-tooltip',
+    'flot-resize',
+    'flot-pie',
+    'datatables',
+    'DT_bootstrap',
+    'js/main'
+     ]);
 // Start the main app logic.

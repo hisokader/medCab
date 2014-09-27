@@ -71,7 +71,7 @@ define([], function () {
 
             });
 
-            $('.pc-epie-chart').easyPieChart({
+            /*$('.pc-epie-chart').easyPieChart({
                 onStep: function(from, to, percent) {
                     $(this.el).find('.percent').text(Math.round(percent));
                 },
@@ -81,7 +81,7 @@ define([], function () {
                 trackColor: "#32323a",
                 scaleColor:"#cccccc"
 
-            });
+            });*/
 
         }
 
@@ -136,7 +136,7 @@ define([], function () {
 
 
 
-        if ($.fn.plot) {
+        /*if ($.fn.plot) {
             var datatPie = [30, 50];
             // DONUT
             $.plot($(".target-sell"), datatPie, {
@@ -170,7 +170,7 @@ define([], function () {
 
                 colors: ["#ff6d60", "#cbcdd9"]
             });
-        }
+        }*/
 
 
 

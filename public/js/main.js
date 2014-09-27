@@ -1,10 +1,11 @@
 define([
     'jquery',
+    'underscore',
     'backbone',
     'router',
     'bootstrap'
 ],
-    function ($,Backbone,Router,Bootstrap) {
+    function ($,_,Backbone,Router,Bootstrap) {
         var mainRouter;
         Backbone.View.prototype.subViews=null;
         Backbone.View.prototype.close=function(){
@@ -24,7 +25,7 @@ define([
                 }
                 else{
                     _.each(this.subViews,function(subViewsItem,index,list){
-                       $(elToRenderTo).append(subViewsItem.render().$el);
+                       this.$el.find(elToRenderTo).append(subViewsItem.render().$el);
                     },this);
                 }
             }

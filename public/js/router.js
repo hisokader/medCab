@@ -7,7 +7,7 @@ define([
         'js/collections/patient_cl',
         'js/views/messageBoxes/confirme',
         'js/models/template/messageBoxe',
-        'js/views/patientstable',
+        'js/views/patientstable'
     ],function($,Backbone,Session,Layout,Login,Patient_cl,confirmeMsgView,messageBoxesModel,patientsTableVw){
     var Router = Backbone.Router.extend({
         routes: {
@@ -47,6 +47,7 @@ define([
                     }
                 }
             });
+            
             if(!this.session.isAuthenticated())this.loginFn();
             else this.dashboard();
         },
