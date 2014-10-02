@@ -1,7 +1,7 @@
 define(['backbone'],function(Backbone){
     var consultation = Backbone.Model.extend({
+      urlRoot:'/patients',
       defaults: {
-          "Patient":  "",
           "DateConsultation": "",
           "Observations": "",
           "DatePayement": "",

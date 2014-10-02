@@ -13,7 +13,8 @@ define([
           "gsm": "",
           "job": "",
           "insurance": "",
-          "diagnostique": ""
+          "diagnostique": "",
+          "consultation":{}
       }
     });
     

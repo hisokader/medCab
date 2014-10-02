@@ -2,20 +2,23 @@ define([
         'jquery',
         'backbone',
         'js/models/session',
+        'js/models/patient_md',
         'js/views/layout',
         'js/views/login',
         'js/collections/patient_cl',
         'js/views/messageBoxes/confirme',
         'js/models/template/messageBoxe',
-        'js/views/patientstable'
-    ],function($,Backbone,Session,Layout,Login,Patient_cl,confirmeMsgView,messageBoxesModel,patientsTableVw){
+        'js/views/patientstable',
+        'js/views/patientProfile'
+    ],function($,Backbone,Session,Patient_md,Layout,Login,Patient_cl,confirmeMsgView,messageBoxesModel,patientsTableVw,PatientProfile){
     var Router = Backbone.Router.extend({
         routes: {
             "index":"dashboard",
             "login":"loginFn",
             "logout":"logoutFn",
             "forbidden":"forbiddenError",
-            "patients":"allPatients"
+            "patients":"allPatients",
+            "patients/:id":"patientProfile"
         },
         initialize:function(){
             console.log('initialize router ! ');
@@ -77,20 +80,28 @@ define([
             //modal.render();
         },
         allPatients:function(){
-            console.log('ffff');
-           var patientsTable=new patientsTableVw().render();
-            /*var patients=new Patient_cl();
-            patients.fetch({success:function(){
-                console.log(JSON.stringify(patients));
-                
-                //patients.sync();
-            }}).then(function(){
-                var pat1=patients.at(1);
-                pat1.destroy({success: function(model, response) {
-                  console.log(model);
-                }});
-                console.log(JSON.stringify(patients));
-            });*/
+            this.setCurentView(new patientsTableVw().render());
+        },
+        patientProfile:function(id){
+            var patient=new Patient_md({'id':id}),
+            self=this;
+            patient.fetch({
+                success:function(model, response, options){
+                    console.log(model);
+                    self.setCurentView(new PatientProfile(model));
+                },
+                error:function(model, response, options){
+                    console(response);
+                }
+            });
+        },
+
+
+        /* helper methodes */
+        
+        setCurentView:function(newView){
+            if(self.currentView)self.currentView.close()
+            self.currentView=newView;
         }
     });
     return Router;

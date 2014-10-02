@@ -21,5 +21,8 @@
     "passport-local-mongoose": "^0.3.0",
     "socket.io": "^1.1.0",
     "static-favicon": "~1.0.0"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5"
   }
 }

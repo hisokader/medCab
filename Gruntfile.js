@@ -8,7 +8,7 @@ module.exports = function(grunt) {
         options: {
           baseUrl: "./",
           mainConfigFile : "./public/js/requireconf.js",
-          name: "./public/bower_components/almond/almond.js", // assumes a production build using almond
+          name: "./public/bower_components/requirejs/require.js", // assumes a production build using almond
           out: "./js/main-built.js",
           include:["./public/js/requireconf.js"]
         }

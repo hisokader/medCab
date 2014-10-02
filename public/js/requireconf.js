@@ -21,6 +21,7 @@ require.config({
         'easypiechart' : 'bower_components/easypie/dist/easypiechart',
         'datatables' : 'js/js_other/datatables/jquery.dataTables',
         'DT_bootstrap':'js/js_other/datatables/DT_bootstrap',
+        'bootstrap-datepicker':'bower_components/bootstrap-datepicker-eyecon/js/bootstrap-datepicker',
         'router' : 'js/router',
         'templates':'./templates'
     },
@@ -72,6 +73,9 @@ require.config({
         },
         'initscript' : {
             deps : ['jquery','bootstrap']
+        },
+        'bootstrap-datepicker' : {
+            deps : ['jquery','bootstrap']
         }
     }
 });
@@ -88,6 +92,7 @@ require([
     'flot-pie',
     'datatables',
     'DT_bootstrap',
+    'bootstrap-datepicker',
     'js/main'
      ]);
 // Start the main app logic.

@@ -9,7 +9,8 @@ define(
     ],function($,_,Backbone,Patients_cl,Template,patientTableItem_vw){
     
     var patientsTable_vw = Backbone.View.extend({
-        el:'#main-content',
+        tagName:'section',
+        className:'wrapper',
         template: _.template(Template),
         events: {
            
@@ -22,10 +23,10 @@ define(
             var patientsTableAttributes={
                 title:"Patients",
                 selector:"patientsTable",
-                headers:["Nom et prénom", "Sexe", "Age", "Tel", "Actions"]
+                headers:["","Nom et prénom", "Sexe", "Age", "Tel", "Actions"]
             };
             this.collection=new Patients_cl();
-            self.$el.append(self.template({tableAttributes:patientsTableAttributes}));
+            self.$el.html(self.template({tableAttributes:patientsTableAttributes}));
             this.collection.fetch({
                 success:function(){
                 self.collection.forEach(function(element, index, list){
@@ -34,8 +35,14 @@ define(
                 self.renderSubView("table."+patientsTableAttributes.selector+" tbody");
             },error:function(){
                 console.log('error fetch()');
-            }}).then(function(){                
-                $("#main-content table."+patientsTableAttributes.selector).dataTable();
+            }}).then(function(){  
+            /* init table */
+                $("#main-content").append(self.$el);
+                $("#main-content table."+patientsTableAttributes.selector).dataTable({
+                    "aoColumnDefs": [
+                        { "bSortable": false, "aTargets": [ 0 ] }
+                    ]
+                });
             });
             
           return this;
