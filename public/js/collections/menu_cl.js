@@ -18,15 +18,6 @@ define(['backbone','../models/template/menu_md'],function(Backbone,menu_md){
 	            ]
 			},
 			{
-				"icon":  "fa-pencil-square-o",
-				"libelle":     "Consultation",
-				"role":"1",
-				"subMenu":[
-					{"route":  "#ajoutconsultation","libelle":  "Nouvelle consultation"},
-	              	{"route":  "#listeconsultations","libelle":  "Liste des consultations"}
-	            ]
-			},
-			{
 				"icon":  "fa-calendar",
 				"libelle":     "Agenda",
 				"route":"#calendar",
@@ -36,6 +27,13 @@ define(['backbone','../models/template/menu_md'],function(Backbone,menu_md){
 			{
 				"icon":  "fa-keyboard-o",
 				"libelle":     "Comptabilite",
+				"role":"1",
+				"subMenu":null
+			},
+			{
+				"icon":  "fa-power-off",
+				"libelle":     "Déconnexion",
+				"route":"#logout",
 				"role":"1",
 				"subMenu":null
 			}

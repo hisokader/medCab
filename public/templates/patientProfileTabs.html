@@ -2,17 +2,17 @@
     <ul class="nav nav-tabs nav-justified ">
         <li>
             <a data-toggle="tab" href="#overview">
-                Overview
+                Consultations
             </a>
         </li>
         <li>
             <a data-toggle="tab" href="#job-history">
-                Job History
+                Payements
             </a>
         </li>
         <li>
-            <a data-toggle="tab" href="#contacts" class="contact-map">
-                Contacts
+            <a data-toggle="tab" href="#settings">
+                Editer
             </a>
         </li>
         <li class="active">
@@ -28,15 +28,17 @@
             <div class="row">
                 <div class="col-md-8">
                     <div class="recent-act">
-                        <h1>Recent Activity</h1>
-                        <div class="activity-icon terques">
-                            <i class="fa fa-check"></i>
-                        </div>
-                        <div class="activity-desk">
-                            <h2>1 Hour Ago</h2>
-                            <p>Purchased new stationary items for head office</p>
-                        </div>
-                        <div class="activity-icon red">
+                        <h1>Consultations</h1>
+                        <% _.each(col, function(consultation){ %>
+                            <div class="activity-icon <% if(consultation.Type == "Consultation"){%> terques <%}else if(consultation.Type == "Contrôle"){%> green <%}%> ">
+                                <i class="fa <% if(consultation.Type == "Consultation"){%> fa-stethoscope <%}else if(consultation.Type == "Contrôle"){%> fa-check-square-o <%}%> "></i>
+                            </div>
+                            <div class="activity-desk">
+                                <h2><%= consultation.DateConsultation %></h2>
+                                <p><%= consultation.Observations %></p>
+                            </div>
+                        <%}); %>
+                        <!--<div class="activity-icon red">
                             <i class="fa fa-beer"></i>
                         </div>
                         <div class="activity-desk">
@@ -79,131 +81,61 @@
                         <div class="activity-desk">
                             <h2 class="yellow">12 december 2013</h2>
                             <p>Montly Regular Medical check up at Greenland Hospital.</p>
-                        </div>
+                        </div>-->
 
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="prf-box">
-                        <h3 class="prf-border-head">work in progress</h3>
-                        <div class=" wk-progress">
-                            <div class="col-md-5">Themeforest</div>
-                            <div class="col-md-5">
-                                <div class="progress  ">
-                                    <div style="width: 70%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40" role="progressbar" class="progress-bar progress-bar-danger">
-                                        <span class="sr-only">70% Complete (success)</span>
+                        <h3 class="prf-border-head">Consultations non payées</h3>
+                        <% 
+                        TotalPayement = 0;
+                        ConsultationPayee = 0;
+                        TotalReste = 0 
+                        %>
+                        <% 
+                        _.each(col, function(consultation){ 
+                        pourcentage = consultation.Avance * 100 / consultation.Montant;
+                        TotalPayement = parseInt(TotalPayement) + parseInt(consultation.Montant);
+                        TotalReste = parseInt(TotalReste) + parseInt(consultation.Reste);
+                        if(consultation.Reste == 0) ConsultationPayee++; 
+                        %>
+                            <div class=" wk-progress">
+                                <div class="col-md-5"><%= consultation.DateConsultation %></div>
+                                <div class="col-md-5">
+                                    <div class="progress  ">
+                                        <div style="width: <%= pourcentage %>%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40" role="progressbar" class="progress-bar <% if(pourcentage < 40){ %> progress-bar-danger <% }else if(pourcentage < 75){ %> progress-bar-info <% }else{ %> progress-bar-success <% } %>">
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="col-md-2"><%= pourcentage %>%</div>
                             </div>
-                            <div class="col-md-2">70%</div>
-                        </div>
-                        <div class=" wk-progress">
-                            <div class="col-md-5">Graphics River</div>
-                            <div class="col-md-5">
-                                <div class="progress ">
-                                    <div style="width: 57%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40" role="progressbar" class="progress-bar progress-bar-success">
-                                        <span class="sr-only">57% Complete (success)</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2">57%</div>
-                        </div>
-                        <div class=" wk-progress">
-                            <div class="col-md-5">Code Canyon</div>
-                            <div class="col-md-5">
-                                <div class="progress ">
-                                    <div style="width: 20%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40" role="progressbar" class="progress-bar progress-bar-info">
-                                        <span class="sr-only">20% Complete (success)</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2">20%</div>
-                        </div>
-                        <div class=" wk-progress">
-                            <div class="col-md-5">Audio Jungle</div>
-                            <div class="col-md-5">
-                                <div class="progress ">
-                                    <div style="width: 30%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40" role="progressbar" class="progress-bar progress-bar-warning">
-                                        <span class="sr-only">30% Complete (success)</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2">30%</div>
-                        </div>
+                        <%}); %>
                     </div>
                     <div class="prf-box">
-                        <h3 class="prf-border-head">performance status</h3>
+                        <h3 class="prf-border-head">Statistiques</h3>
                         <div class=" wk-progress pf-status">
-                            <div class="col-md-8 col-xs-8">Total Product Sales</div>
+                            <div class="col-md-8 col-xs-8">Consultations éffectuées</div>
                             <div class="col-md-4 col-xs-4">
-                                <strong>23545</strong>
-                            </div>
-                        </div>
-                        <div class=" wk-progress pf-status">
-                            <div class="col-md-8 col-xs-8">Total Product Refer</div>
-                            <div class="col-md-4 col-xs-4">
-                                <strong>235</strong>
+                                <strong><% nbCol = _.size(col); %><%= nbCol %></strong>
                             </div>
                         </div>
                         <div class=" wk-progress pf-status">
-                            <div class="col-md-8 col-xs-8">Total Earn</div>
+                            <div class="col-md-8 col-xs-8">Consultations Payées</div>
                             <div class="col-md-4 col-xs-4">
-                                <strong>235452344$</strong>
+                                <strong><%= ConsultationPayee %></strong>
                             </div>
                         </div>
-                    </div>
-                    <div class="prf-box">
-                        <h3 class="prf-border-head">team members</h3>
-                        <div class=" wk-progress tm-membr">
-                            <div class="col-md-2 col-xs-2">
-                                <div class="tm-avatar">
-                                    <img src="images/lock_thumb.jpg" alt=""/>
-                                </div>
-                            </div>
-                            <div class="col-md-7 col-xs-7">
-                                <span class="tm">John Boltana</span>
-                            </div>
-                            <div class="col-md-3 col-xs-3">
-                                <a href="#" class="btn btn-white">Assign</a>
+                        <div class=" wk-progress pf-status">
+                            <div class="col-md-8 col-xs-8">Total Payé</div>
+                            <div class="col-md-4 col-xs-4">
+                                <strong><%= TotalPayement %> Dh</strong>
                             </div>
                         </div>
-                        <div class=" wk-progress tm-membr">
-                            <div class="col-md-2 col-xs-2">
-                                <div class="tm-avatar">
-                                    <img src="images/avatar-mini-2.jpg" alt=""/>
-                                </div>
-                            </div>
-                            <div class="col-md-7 col-xs-7">
-                                <span class="tm">John Boltana</span>
-                            </div>
-                            <div class="col-md-3 col-xs-3">
-                                <a href="#" class="btn btn-white">Assign</a>
-                            </div>
-                        </div>
-                        <div class=" wk-progress tm-membr">
-                            <div class="col-md-2 col-xs-2">
-                                <div class="tm-avatar">
-                                    <img src="images/avatar-mini-3.jpg" alt=""/>
-                                </div>
-                            </div>
-                            <div class="col-md-7 col-xs-7">
-                                <span class="tm">John Boltana</span>
-                            </div>
-                            <div class="col-md-3 col-xs-3">
-                                <a href="#" class="btn btn-white">Assign</a>
-                            </div>
-                        </div>
-                        <div class=" wk-progress tm-membr">
-                            <div class="col-md-2 col-xs-2">
-                                <div class="tm-avatar">
-                                    <img src="images/avatar-mini-4.jpg" alt=""/>
-                                </div>
-                            </div>
-                            <div class="col-md-7 col-xs-7">
-                                <span class="tm">John Boltana</span>
-                            </div>
-                            <div class="col-md-3 col-xs-3">
-                                <a href="#" class="btn btn-white">Assign</a>
+                        <div class=" wk-progress pf-status">
+                            <div class="col-md-8 col-xs-8">Total Réstant</div>
+                            <div class="col-md-4 col-xs-4">
+                                <strong><%= TotalReste %> Dh</strong>
                             </div>
                         </div>
                     </div>
@@ -343,36 +275,112 @@
                 </div>
             </div>
         </div>
-        <div id="contacts" class="tab-pane ">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="prf-contacts">
-                        <h2> <span><i class="fa fa-map-marker"></i></span> location</h2>
-                        <div class="location-info">
-                            <p>Postal Address<br>
-                                PO Box 16122 Collins Street West<br>
-                                Victoria 8007 Australia</p>
-                            <p>Headquarters<br>
-                                121 King Street, Melbourne<br>
-                                Victoria 3000 Australia</p>
-                        </div>
-                        <h2> <span><i class="fa fa-phone"></i></span> contacts</h2>
-                        <div class="location-info">
-                            <p>Phone	: +61 3 8376 6284 <br>
-                                Cell		: +61 3 8376 6284</p>
-                            <p>Email		: david@themebucket.net<br>
-                                Skype		: david.rojormillan</p>
-                            <p>
-                                Facebook	: https://www.facebook.com/themebuckets <br>
-                                Twitter	: https://twitter.com/theme_bucket
-                            </p>
+        <div id="settings" class="tab-pane ">
+            <div class="position-center">
+            <form role="form" class="form-horizontal" id="editPatientForm">
+                <div class="prf-contacts sttng">
+                    <h2>Informations Personnelles</h2>
+                </div>
+                
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Nom</label>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control input-sm" placeholder="Nom" id="lastName" name="lastName">
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Prénom</label>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control input-sm" placeholder="Prénom" id="firstName" name="firstName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label col-lg-3" for="inputSuccess">Sexe</label>
+                        <div class="col-lg-6">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="sexe" id="optionsRadios1" value="0" checked>Homme
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="sexe" id="optionsRadios2" value="1">Femme
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Date de naissance</label>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control form-control-inline default-date-picker input-sm" placeholder="Date de naissance" id="dayBirth" name="dayBirth">
+                        </div>
+                    </div>
+
+                <div class="prf-contacts sttng">
+                    <h2>Contact</h2>
                 </div>
-                <div class="col-md-6">
-                    <div id="map-canvas"></div>
+
+                     <div class="form-group">
+                        <label class="col-lg-3 control-label">Gsm</label>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control input-sm" placeholder="Gsm" id="gsm" name="gsm">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Fixe</label>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control input-sm" placeholder="Fixe" id="tel" name="tel">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Addresse</label>
+                        <div class="col-lg-7">
+                            <textarea class="form-control" cols="60" rows="5" id="adress" name="adress"></textarea>
+                        </div>
+                    </div>
+                
+                <div class="prf-contacts sttng">
+                    <h2>Autres</h2>
                 </div>
+               
+                   <div class="form-group">
+                        <label class="col-lg-3 control-label">Profession</label>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control input-sm" placeholder="Profession" id="job" name="job">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label col-lg-3" for="inputSuccess">Mutueliste</label>
+                        <div class="col-lg-6">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="insurance" value="0" checked>Oui
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="insurance" value="1">Non
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+                   <div class="form-group">
+                        <label class="col-lg-3 control-label">Diagnostique</label>
+                        <div class="col-lg-7">
+                            <textarea class="form-control" cols="60" rows="5" id="diagnostique" name="diagnostique"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-7 col-md-offset-3">
+                            <br>
+                            <button type="submit" class="btn btn-primary" style="float:right">Enregistrer les modifications</button>
+                        </div>
+                    </div>
+             </form>
             </div>
+
         </div>
 
     </div>

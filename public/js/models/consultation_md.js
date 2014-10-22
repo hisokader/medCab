@@ -3,6 +3,7 @@ define(['backbone'],function(Backbone){
       urlRoot:'/patients',
       defaults: {
           "DateConsultation": "",
+          "Type": "",
           "Observations": "",
           "DatePayement": "",
           "Montant": "",

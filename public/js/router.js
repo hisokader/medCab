@@ -106,9 +106,9 @@ define([
         },
         patientProfile:function(id){
             var patient=new Patient_md({'_id':id});
-            var PatCons=new Consultation_cl();
+            /*var PatCons=new Consultation_cl();
             var PatConsFltr=PatCons.where({"patient":id});
-            console.log(new Backbone.Collection(PatConsFltr));
+            console.log(new Backbone.Collection(PatConsFltr));*/
             self=this;
             patient.fetch({
                 success:function(model, response, options){

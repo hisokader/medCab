@@ -4,9 +4,10 @@ define(
         'underscore',
         'backbone',
         'js/models/patient_md',
+        'js/collections/consultation_cl',
         'text!templates/patientProfileTabs.html',
         'js/views/patientProfileTabsConsForm',
-    ],function($,_,Backbone,Patients_md,Template,TabsConsForm){
+    ],function($,_,Backbone,Patients_md,Consultation_cl,Template,TabsConsForm){
     
     var patientProfileTabs_vw = Backbone.View.extend({
         tagName:'section',
@@ -21,7 +22,7 @@ define(
 
         },
         render: function(){
-          this.$el.html(this.template());
+          this.$el.html(this.template({col: new Consultation_cl().toJSON()}));
           this.renderSubView('.tab-content.tasi-tab');
           return this;
         }
