@@ -30,7 +30,6 @@ define(
         },
         initialize:function(model){
             this.model=model;
-            console.log(this.model);
         },
         render: function(){
             this.$el.html(this.template({patient:this.model.toJSON()}));

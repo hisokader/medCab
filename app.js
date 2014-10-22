@@ -14,6 +14,7 @@ var role = require('./config/acl');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var patients = require('./routes/patients');
+var appointments = require('./routes/appointments');
 var app = express();
 
 // view engine setup
@@ -40,9 +41,7 @@ app.all('/*',function(req, res, next) {
             res.send(401,{status:'false', msg:'login Please'});
         }
     else {
-        console.log("Cookies: ", req.cookies)
-        console.log(req.isAuthenticated());
-        console.log(req.user);
+        res.set('x-csrf-token', req.csrfToken());
         next();
     }
 });
@@ -52,6 +51,7 @@ app.use(role.middleware());
 app.use('/', routes);
 app.use('/patients', patients);
 app.use('/users', users);
+app.use('/appointments', appointments);
 
 
 /// catch 404 and forwarding to error handler

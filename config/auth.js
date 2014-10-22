@@ -4,7 +4,7 @@ var mongooseConn=require('./database'),
 	passportLocalMongoose = require('passport-local-mongoose'),
 	user = require('../schema/user');
 
-user.plugin(passportLocalMongoose, {usernameField: 'username', hashField: 'password'});
+user.plugin(passportLocalMongoose, {usernameField: 'username', hashField: 'password', iterations: 20});
 
 var userModel=mongooseConn.model('User', user);
 passport.use(new localStrategy(userModel.authenticate()));

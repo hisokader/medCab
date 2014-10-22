@@ -3,14 +3,20 @@ define([
         'backbone',
         'js/models/session',
         'js/models/patient_md',
+        'js/models/user_md',
         'js/views/layout',
         'js/views/login',
         'js/collections/patient_cl',
+        'js/collections/user_cl',
+        'js/collections/consultation_cl',
         'js/views/messageBoxes/confirme',
         'js/models/template/messageBoxe',
         'js/views/patientstable',
-        'js/views/patientProfile'
-    ],function($,Backbone,Session,Patient_md,Layout,Login,Patient_cl,confirmeMsgView,messageBoxesModel,patientsTableVw,PatientProfile){
+        'js/views/patientProfile',
+        'js/views/ajoutPatientContainer',
+        'js/views/usersContainer',
+        'js/views/calendar'
+    ],function($,Backbone,Session,Patient_md,User_md,Layout,Login,Patient_cl,User_cl,Consultation_cl,confirmeMsgView,messageBoxesModel,patientsTableVw,PatientProfile,ajoutPatientContainer_vw,usersContainer_vw,Calendar){
     var Router = Backbone.Router.extend({
         routes: {
             "index":"dashboard",
@@ -18,14 +24,22 @@ define([
             "logout":"logoutFn",
             "forbidden":"forbiddenError",
             "patients":"allPatients",
-            "patients/:id":"patientProfile"
+            "patients/:id":"patientProfile",
+            "addpatient":"addPatient",
+            "users": "users",
+            "calendar":"calendarPage"
         },
         initialize:function(){
             console.log('initialize router ! ');
+
             var self=this;
             this.currentView=null;
             this.session=new Session();
+            this.ColPat = new Patient_cl();
+            this.ColUsr = new User_cl();
+
             this.csurfToken=$('meta[name=csrf-token]').attr("content");
+
             $.ajaxSetup({
                 beforeSend: function(xhr) {
                     xhr.setRequestHeader('x-csrf-token',self.csurfToken);
@@ -51,15 +65,15 @@ define([
                 }
             });
             
-            if(!this.session.isAuthenticated())this.loginFn();
-            else this.dashboard();
+            if(!this.session.isAuthenticated()) this.loginFn();
+            else self.dashboard(); 
+
         },
         loginFn:function(){
             if(!this.session.isAuthenticated()){
                 if(this.layout)this.layout.close();
                 this.login=new Login(this).render();
-            }else
-                this.dashboard();
+            }else this.dashboard();
         },
         logoutFn:function(){
             if(this.session.isAuthenticated()){
@@ -71,19 +85,30 @@ define([
             if(this.layout)this.layout.close();
         },
         dashboard:function(){
-            /*var modal = new confirmeMsgView(new messageBoxesModel({title:"myTitle",text:"dgdfgd",type:"dialoge"}),function(){
-                console.log('thisis callback fn');
-            });*/
             if(this.layout)this.layout.close();
             this.layout=this.layout || new Layout(this);
             this.layout.render();
-            //modal.render();
         },
         allPatients:function(){
-            this.setCurentView(new patientsTableVw().render());
+            self=this;
+            if(this.ColPat.length != 0){
+                self.setCurentView(new patientsTableVw(self.ColPat).render());
+            }else{
+                self.ColPat.fetch({
+                    success:function(){
+                        self.setCurentView(new patientsTableVw(self.ColPat).render());
+                    },
+                    error:function(){
+                        console.log('error fetch()');
+                    }
+                });
+            }
         },
         patientProfile:function(id){
-            var patient=new Patient_md({'id':id}),
+            var patient=new Patient_md({'_id':id});
+            var PatCons=new Consultation_cl();
+            var PatConsFltr=PatCons.where({"patient":id});
+            console.log(new Backbone.Collection(PatConsFltr));
             self=this;
             patient.fetch({
                 success:function(model, response, options){
@@ -95,13 +120,46 @@ define([
                 }
             });
         },
+        calendarPage:function(){
+            this.setCurentView(new Calendar().render());
+        },
+        addPatient:function(){
+            self=this;
+            if(this.ColPat.length != 0){
+                self.setCurentView(new ajoutPatientContainer_vw(self.ColPat));
+            }else{
+                self.ColPat.fetch({
+                    success:function(){
+                        self.setCurentView(new ajoutPatientContainer_vw(self.ColPat));
+                    },
+                    error:function(){
+                        console.log('error fetch()');
+                    }
+                });
+            }
+        },
+        users:function(){
+            self=this;
+            if(this.ColUsr.length != 0){
+                self.setCurentView(new usersContainer_vw(self.ColUsr));
+            }else{
+                self.ColUsr.fetch({
+                    success:function(){
+                        self.setCurentView(new usersContainer_vw(self.ColUsr));
+                    },
+                    error:function(){
+                        console.log('error fetch() users');
+                    }
+                });
+            }
+        },
 
 
         /* helper methodes */
         
         setCurentView:function(newView){
-            if(self.currentView)self.currentView.close()
-            self.currentView=newView;
+            if(this.currentView) this.currentView.close(this.currentView);
+            this.currentView=newView;
         }
     });
     return Router;

@@ -5,7 +5,7 @@
              
             <% _.each(col, function(menu){ %>
                 <li <% if(_.isArray(menu.subMenu) && menu.subMenu.length>0){ %><%='class="sub-menu"'%><%}%> >
-                    <a href="index.html">
+                    <a href="<%= menu.route%>">
                         <i class="fa <%= menu.icon %>"></i>
                         <span><%= menu.libelle %></span>
                     </a>

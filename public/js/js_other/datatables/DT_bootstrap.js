@@ -3,8 +3,17 @@ $.extend( true, $.fn.dataTable.defaults, {
 	"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
 	"sPaginationType": "bootstrap",
 	"oLanguage": {
-		"sLengthMenu": "_MENU_ records per page"
-	}
+		"sEmptyTable":     "Pas de données",
+	    "sInfo":           "_START_ à _END_ / _TOTAL_ lignes",
+	    "sInfoEmpty":      "0 à 0 / 0 lignes",
+	    "sInfoFiltered":   "(filtre de _MAX_ lignes)",
+	    "sInfoPostFix":    "",
+	    "sThousands":      ",",
+	    "sLengthMenu":     "_MENU_ lignes par page",
+	    "sLoadingRecords": "Chargement des données...",
+	    "sProcessing":     "En cours d'execution ...",
+	    "sZeroRecords":    "Aucun résultas trouvé !!"
+		}
 } );
 
 

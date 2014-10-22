@@ -8,7 +8,8 @@ define(['backbone'],function(Backbone){
           "Montant": "",
           "Avance": "",
           "Reste": "",
-          "Devise": ""
+          "medicamentsList":[],
+          "analyses":[]
       }
     });
     

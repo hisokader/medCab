@@ -3,6 +3,7 @@ define([
   ],function(Backbone){
     var patient = Backbone.Model.extend({
       urlRoot:'/patients',
+      idAttribute: "_id",
       defaults: {
           "lastName":  "",
           "firstName": "",

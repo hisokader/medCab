@@ -4,6 +4,7 @@ define(['backbone'],function(Backbone){
           "icon":  "caesar salad",
           "libelle":     "ravioli",
           "role":"0",
+          "route":"#",
           "subMenu":[
               {"route":  "caesar salad","libelle":     "ravioli"},
               {"route":  "caesar salad","libelle":     "ravioli"},

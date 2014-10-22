@@ -15,7 +15,7 @@ define(
         },
         confirmefn:function(event){
             event.preventDefault();
-            this.cb();
+            if(this.cb) this.cb();
             $(this.el).modal('hide');
         },
         initialize:function(model,cb){

@@ -5034,6 +5034,14 @@ div.tagsinput span.tag {
     right:4px;
     top:8px;
 }
+.event-edit {
+    display:inline-block;
+    font-size:20px;
+    color:#fff;
+    position:absolute;
+    right:28px;
+    top:8px;
+}
 .cal-day {
     font-size:30px;
     font-weight:300;
@@ -5711,4 +5719,38 @@ right: -1px;
     -ms-transition: none;
     -o-transition: none;
     transition: none;
+}
+
+
+/* Validation Errors Styles*/
+
+form input.error, form textarea.error {
+background: rgb(251, 227, 228);
+border: 1px solid #fbc2c4;
+color: #8a1f11;
+}
+
+form label.error {
+color: #8a1f11;
+display: inline-block;
+margin-left: 1.5em;
+font-weight:bold;
+}
+
+.datepicker{
+    z-index:9999;
+}
+
+.editPatientModal{
+    width:70%;
+}
+.modal-body h2 {
+background: #1FB5AD;
+color: #fff;
+text-transform: lowercase;
+padding: 3px;
+padding-left: 8px;
+-border-radius: 3px;
+-moz-border-radius: 3px;
+-webkit-border-radius: 3px;
 }

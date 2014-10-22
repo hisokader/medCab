@@ -1,0 +1,9 @@
+<td><strong style="color:#000; font-weight: 700;"><%= user.nom %> <%= user.prenom %></strong></td>
+<td class="hidden-phone"><%= user.username %></td>
+<td><% if(user.role == 1) {%> Administrateur <% } else {%> Utilisateur <% } %></td>
+<td>
+
+	<span class="label label-info label-mini usr-edit" style="cursor:pointer"><i class="fa fa-edit"></i></span>&nbsp;&nbsp;
+	<span class="label label-danger label-mini usr-close" style="cursor:pointer"><i class="ico-close2"></i></span>&nbsp;&nbsp;
+	<span class="label label-success label-mini usr-editPassword" style="cursor:pointer">changer le mot de passe</span>
+</td>

@@ -1,0 +1,109 @@
+<link rel="stylesheet" href="css/jquery.steps.css">
+
+<div style="margin:15px;">
+<form class="form-horizontal" id="ajoutPatientForm" method="post" action="/patients">
+<div id="wizard">
+    <h2>Infos Perso</h2>
+
+    <section>
+        
+            <div class="form-group">
+                <label class="col-lg-3 control-label" class="jj">Nom</label>
+                <div class="col-lg-8">
+                    <input type="text" class="form-control input-sm" id="firstName" name="firstName">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 control-label">Prénom</label>
+                <div class="col-lg-8">
+                    <input type="text" class="form-control input-sm" id="lastName" name="lastName">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label col-lg-3" for="inputSuccess">Sexe</label>
+                <div class="col-lg-6">
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="sexe" id="optionsRadios1" value="0" checked>Homme
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="sexe" id="optionsRadios2" value="1">Femme
+                        </label>
+                    </div>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 control-label">Date naissance</label>
+                <div class="col-lg-8">
+                    <input type="text" class="form-control form-control-inline default-date-picker input-sm" id="dayBirth" name="dayBirth" data-mask="99/99/9999">
+                </div>
+            </div>      
+    </section>
+
+    <h2>Contact</h2>
+    <section>
+        
+            <div class="form-group">
+                <label class="col-lg-3 control-label">Gsm</label>
+                <div class="col-lg-8">
+                    <input type="text" class="form-control input-sm" id="gsm" name="gsm">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 control-label">Fixe</label>
+                <div class="col-lg-8">
+                    <input type="text" class="form-control input-sm" id="tel" name="tel">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 control-label">Addresse</label>
+                <div class="col-lg-8">
+                    <textarea class="form-control" cols="60" rows="5" id="adress" name="adress"></textarea>
+                </div>
+            </div>
+        
+    </section>
+
+    <h2>Autres</h2>
+    <section>
+        
+            <div class="form-group">
+                <label class="col-lg-3 control-label">Profession</label>
+                <div class="col-lg-8">
+                    <input type="text" class="form-control input-sm" id="job" name="job">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label col-lg-3" for="inputSuccess">Mutueliste</label>
+                <div class="col-lg-6">
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="insurance" value="0" checked>Oui
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="insurance" value="1">Non
+                        </label>
+                    </div>
+
+                </div>
+            </div>
+            <% if(role == 1){ %>
+           <div class="form-group">
+                <label class="col-lg-3 control-label">Diagnostique</label>
+                <div class="col-lg-8">
+                    <textarea class="form-control" cols="60" rows="5" id="diagnostique" name="diagnostique"></textarea>
+                </div>
+            </div>
+            <% } %>
+
+        
+    </section>
+
+</div>
+</form>
+</div>

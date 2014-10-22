@@ -13,7 +13,7 @@ define(['backbone','../models/template/menu_md'],function(Backbone,menu_md){
 				"libelle":     "Patient",
 				"role":"1",
 				"subMenu":[
-					{"route":  "#ajoutpatient","libelle":  "Nouveau patient"},
+					{"route":  "#addpatient","libelle":  "Nouveau patient"},
 	              	{"route":  "#patients","libelle":  "Liste des patients"}
 	            ]
 			},
@@ -29,6 +29,7 @@ define(['backbone','../models/template/menu_md'],function(Backbone,menu_md){
 			{
 				"icon":  "fa-calendar",
 				"libelle":     "Agenda",
+				"route":"#calendar",
 				"role":"1",
 				"subMenu":null
 			},

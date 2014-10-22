@@ -15,7 +15,7 @@ router.route('/')
 		var newPatient=new patientModel(req.body);
 		newPatient.save(function (err) {
 		  if (err) throw err;
-		  res.json(200,'added');
+		  res.json(200,newPatient);
 		});
 	});
 

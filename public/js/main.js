@@ -8,11 +8,12 @@ define([
     function ($,_,Backbone,Router,Bootstrap) {
         var mainRouter;
         Backbone.View.prototype.subViews=null;
-        Backbone.View.prototype.close=function(){
-            _.each(this.subViews,function(subViewsItem, index, list){
+        Backbone.View.prototype.close=function(ctx){
+            if(!ctx) ctx = this;
+            _.each(ctx.subViews,function(subViewsItem, index, list){
                 var item=this.subViews.pop();
                 item.close();
-            },this);
+            },ctx);
             this.remove();
         };
         Backbone.View.prototype.renderSubView=function(elToRenderTo){
@@ -30,6 +31,7 @@ define([
                 }
             }
         };
+
         mainRouter = new Router();
         Backbone.history.start({root: "/"});
 });

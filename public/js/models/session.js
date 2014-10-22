@@ -8,8 +8,6 @@ define([
       url : '/session',
 
       initialize : function(){
-          //Check for sessionStorage support
-          console.log('sess init');
           if(Storage && sessionStorage){
               this.supportStorage = true;
           }
@@ -33,7 +31,6 @@ define([
 
       set : function(key, value){
           if(this.supportStorage){
-            console.log(value);
               sessionStorage.setItem(key, value);
           }else{
               Backbone.Model.prototype.set.call(this, key, value);

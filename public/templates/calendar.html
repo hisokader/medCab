@@ -1,0 +1,18 @@
+
+<div style="margin:15px;">
+    <aside class="col-lg-9">
+          <div id="calendar" class="has-toolbar" style="margin-top:0px; margin-bottom:25px"></div>
+    </aside>
+    <aside class="col-lg-3">
+        <h4 class="drg-event-title"> Evenements</h4>
+        <div id='external-events'>
+            <% _.each(allEvents,function(element,index,list){%>
+            <div class='external-event label <%=element.cssClass%> <%=element.id%>' style="width:100%"><%=element.label%></div> 
+            <%});%>
+           <!-- <p class="border-top drp-rmv">
+                <input type='checkbox' id='drop-remove' />
+                remove after drop
+            </p>-->
+        </div>
+    </aside>
+</div>

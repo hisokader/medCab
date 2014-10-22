@@ -10,8 +10,10 @@ require.config({
         'io' : 'bower_components/socket.io-client/socket.io',
         'initscript' : 'js/scripts',
         'dcjqaccordion': 'bower_components/jquery-dcjqaccordion/jquery.dcjqaccordion',
+        'panelslideinit' : 'js/views/init/panelslide-init',
         'scrollTo' : 'bower_components/jquery.scrollTo/jquery.scrollTo',
         'slimscroll' : 'bower_components/jquery.slimscroll/jquery.slimscroll',
+        'slimscrollinit' : 'js/views/init/slimscroll-init',
         'nicescroll' : 'bower_components/jquery.nicescroll/jquery.nicescroll',
         'sparkline' : 'bower_components/jquery.sparkline/dist/jquery.sparkline',
         'flot' : 'bower_components/flot.tooltip/js/jquery.flot',
@@ -22,6 +24,18 @@ require.config({
         'datatables' : 'js/js_other/datatables/jquery.dataTables',
         'DT_bootstrap':'js/js_other/datatables/DT_bootstrap',
         'bootstrap-datepicker':'bower_components/bootstrap-datepicker-eyecon/js/bootstrap-datepicker',
+        'steps' : 'bower_components/jquery.steps/build/jquery.steps',
+        'stepsinit' : 'js/views/init/steps-init',
+        'validation' : 'bower_components/jquery-validate/dist/jquery.validate',
+        'tagsinput':'bower_components/jquery.tagsinput/jquery.tagsinput',
+        'fullcalendar':'bower_components/fullcalendar/dist/fullcalendar',
+        'fullcalendarlangFr':'bower_components/fullcalendar/dist/lang/fr',
+        'jqueryui':'bower_components/jquery-ui/jquery-ui',
+        'bootstrap-timepicker':'js/js_other/bootstrap-timepicker/bootstrap-timepicker',
+        'moment':'bower_components/moment/moment',
+        'select2':'bower_components/select2/select2',
+        'select2langFr':'bower_components/select2/select2_locale_fr',
+        'inputmask' : 'bower_components/jquery.inputmask/dist/inputmask/jquery.inputmask',
         'router' : 'js/router',
         'templates':'./templates'
     },
@@ -76,7 +90,44 @@ require.config({
         },
         'bootstrap-datepicker' : {
             deps : ['jquery','bootstrap']
+        },
+        'steps' : {
+            deps : ['jquery']
+        },
+        'stepsinit' : {
+            deps : ['steps']
+        },
+        'validation' : {
+            deps : ['jquery']
+        },
+        'moment' : {
+            deps : ['jquery']
+        },
+        'inputmask' : {
+            deps : ['jquery']
+        },
+        'tagsinput' : {
+            deps : ['jquery']
+        },
+        'fullcalendar': {
+            deps : ['jquery','moment','jqueryui']
+        },
+        'fullcalendarlangFr': {
+            deps : ['fullcalendar']
+        },
+        'jqueryui': {
+            deps : ['jquery']
+        },
+        'bootstrap-timepicker': {
+            deps : ['bootstrap']
+        },
+        'select2':{
+            deps:['jquery']
+        },
+        'select2langFr':{
+            deps:['select2']
         }
+
     }
 });
 require([
@@ -92,7 +143,15 @@ require([
     'flot-pie',
     'datatables',
     'DT_bootstrap',
+    'steps',
+    'validation',
     'bootstrap-datepicker',
+    'moment',
+    'inputmask',
+    'tagsinput',
+    'fullcalendarlangFr',
+    'select2langFr',
+    'bootstrap-timepicker',
     'js/main'
      ]);
 // Start the main app logic.
